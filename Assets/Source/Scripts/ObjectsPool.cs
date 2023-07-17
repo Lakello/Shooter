@@ -5,8 +5,7 @@ using UnityEngine;
 public abstract class ObjectsPool<TPoolingObject> : MonoBehaviour
 {
     [SerializeField] private GameObject _container;
-    [SerializeField] private GameObject _prefab;
-    [SerializeField] private int _capacity;
+    [SerializeField] private PoolingObject[] _poolingObjects;
 
     private List<TPoolingObject> _pool = new List<TPoolingObject>();
 
@@ -14,23 +13,26 @@ public abstract class ObjectsPool<TPoolingObject> : MonoBehaviour
 
     private void Awake()
     {
-        Initialize(_prefab);
+        Initialize();
     }
 
     protected abstract void EnableObject(TPoolingObject poolingObject);
     protected abstract void DisableObject(TPoolingObject poolingObject);
     
-    private void Initialize(GameObject prefab)
+    private void Initialize()
     {
-        if (!prefab.gameObject.TryGetComponent(out TPoolingObject poolingObject))
-            throw new System.ArgumentException();
-
-        for (int i = 0; i < _capacity; i++)
+        foreach (var obj in _poolingObjects)
         {
-            GameObject spawned = Instantiate(prefab, _container.transform);
-            spawned.SetActive(false);
+            if (!obj.Prefab.gameObject.TryGetComponent(out TPoolingObject poolingObject))
+                throw new System.ArgumentException();
 
-            _pool.Add(spawned.gameObject.GetComponent<TPoolingObject>());
+            for (int i = 0; i < obj.Capacity; i++)
+            {
+                GameObject spawned = Instantiate(obj.Prefab, _container.transform);
+                spawned.SetActive(false);
+
+                _pool.Add(spawned.gameObject.GetComponent<TPoolingObject>());
+            }
         }
     }
 }
