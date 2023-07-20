@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    [SerializeField] protected int CurrentHealth;
+    [SerializeField] protected float CurrentHealth;
 
-    protected abstract float Damage { get; }
-    protected abstract float AttackDistance { get; }
+
+    public abstract void Init(UnitInfo unitInfo);
 }
