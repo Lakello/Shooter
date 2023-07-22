@@ -7,7 +7,9 @@ public abstract class UnitInfo : ScriptableObject
     [SerializeField] private float _damage;
     [SerializeField] private float _attackDistance;
     [SerializeField] private Unit _prefab;
+    [SerializeField] private UnitType _type;
 
+    public UnitType Type => _type;
     public Unit Prefab => _prefab;
     public float MaxHealth => _maxHealth;
     public float Damage => _damage;

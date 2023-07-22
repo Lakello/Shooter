@@ -1,38 +1,17 @@
 using UnityEngine;
 
-public class UnitsFactory
+public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
 {
-    private UnitInfo _warrior;
-
-    public UnitsFactory(UnitInfo warrior, UnitInfo)
+    public override Unit GetNewObject(UnitInfo unitInfo)
     {
-        _warrior = warrior;
+        var unit = CreateObject<Unit>(unitInfo.Prefab);
+        unit.Init(unitInfo);
+        return unit;
     }
 
-    public Archer CreateArcher()
+    protected override T CreateObject<T>(Unit unitPrefab)
     {
-        var archer = GetNewUnitComponent<Archer>();
-        archer.Init(_warrior);
-        return archer;
-    }
-
-    public Mage CreateMage()
-    {
-        var mage = GetNewUnitComponent<Mage>();
-        mage.Init(_warrior);
-        return mage;
-    }
-
-    public Warrior CreateWarrior()
-    {
-        var warrior = GetNewUnitComponent<Warrior>();
-        warrior.Init(_warrior);
-        return warrior;
-    }
-
-    private T GetNewUnitComponent<T>()
-    {
-        var warrior = GameObject.Instantiate(_warrior.Prefab);
+        var warrior = GameObject.Instantiate(unitPrefab);
         return warrior.GetComponent<T>();
     }
 }

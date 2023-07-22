@@ -1,4 +1,4 @@
-public enum Enemy
+public enum UnitType
 {
     Warrior,
     Mage,
