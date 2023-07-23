@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Utilities;
 
@@ -10,5 +9,6 @@ public class LevelInfo : ScriptableObject
     [SerializeField] private WaveInfo[] _waves;
 
     public float DelayBetweenWavesInSeconds => _delayBetweenWavesInSeconds;
+    public float DelayBeforeStartOfLevelInSeconds => _delayBeforeStartOfLevelInSeconds;
     public ReadOnlyArray<WaveInfo> Waves => _waves;
 }
