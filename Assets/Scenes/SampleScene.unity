@@ -1450,14 +1450,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334493812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a166505c74cfc704fbcd779e9d956095, type: 3}
+  m_Script: {fileID: 11500000, guid: a16b3fdcf75bf704db61ff805c84b0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 1334493812}
-  _prefab: {fileID: 1606526433321761843, guid: c4937f07d970e6b4a98fb1331680357d, type: 3}
-  _capacity: 30
-  _pool: []
-  _player: {fileID: 946283425}
+  _levelInfo: {fileID: 11400000, guid: 25ab5f95cd0b47f4fb7582d1d23c1685, type: 2}
 --- !u!1 &1850224843
 GameObject:
   m_ObjectHideFlags: 0

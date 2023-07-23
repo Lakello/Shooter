@@ -2,12 +2,12 @@ using UnityEngine;
 
 public abstract class Warrior : Unit, IAttack, ITakeDamage
 {
-    protected UnitInfo _selfInfo;
+    protected UnitInfo SelfInfo;
 
     public override void Init(UnitInfo unitInfo)
     {
         CurrentHealth = unitInfo.MaxHealth;
-        _selfInfo = unitInfo;
+        SelfInfo = unitInfo;
     }
 
     public abstract void Attack();
