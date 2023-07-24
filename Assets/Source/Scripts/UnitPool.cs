@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class UnitPoolList : PoolList<Unit, UnitInfo>
+public class UnitPool : ObjectPool<Unit, UnitInfo>
 {
     private HashSet<UnitNode> _units = new HashSet<UnitNode>();
 

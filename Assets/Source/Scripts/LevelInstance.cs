@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelInstance : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private LevelStateMachine _levelStateMachine;
+    private EnemySpawner _enemySpawner;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _levelStateMachine = new LevelStateMachine();
+        _levelStateMachine.EnterIn<InitializeLevelState>();
+
+        _enemySpawner = new EnemySpawner(gameObject, new UnitsFactory(), new UnitPool());
     }
 }

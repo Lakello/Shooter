@@ -1,8 +1,13 @@
-using UnityEngine;
-
-public abstract class Spawner<TObject, TInfo>  : MonoBehaviour where TObject : ICreated where TInfo : ICreatedInfo
+public abstract class Spawner<TObject, TInfo> where TObject : ICreated where TInfo : ICreatedInfo
 {
-    protected PoolInit<TObject, TInfo> PoolInit;
+    protected ObjectFactory<TObject, TInfo> Factory;
+    protected ObjectPool<TObject, TInfo> Pool;
+
+    protected Spawner(ObjectFactory<TObject, TInfo> factory, ObjectPool<TObject, TInfo> pool)
+    {
+        Factory = factory;
+        Pool = pool;
+    }
 
     protected abstract TObject GetObject(TInfo info);
     protected abstract TObject CreateObject(TInfo info);
