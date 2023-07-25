@@ -3,36 +3,40 @@ using System.Linq;
 
 public class UnitPool : ObjectPool<Unit, UnitInfo>
 {
-    private HashSet<UnitNode> _units = new HashSet<UnitNode>();
+    private Dictionary<UnitType, List<Unit>> _units = new Dictionary<UnitType, List<Unit>>();
 
-    public override void Add(UnitInfo info, Unit unit)
+    public override void Add(Unit unit)
     {
-        if (!Contains(info.Type))
-            AddType(info.Type);
+        if (!_units.ContainsKey(unit.SelfInfo.Type))
+            AddType(unit.SelfInfo.Type);
 
-        _units.First(t => t.Type == info.Type).Units.Add(unit);
+        if (_units.TryGetValue(unit.SelfInfo.Type, out List<Unit> units))
+        {
+            unit.gameObject.SetActive(false);
+            units.Add(unit);
+        }
+    }
+
+    public override void Return(Unit unit)
+    {
+        unit.gameObject.SetActive(false);
     }
 
     public override Unit TryGetObject(UnitInfo info)
     {
-        return _units.FirstOrDefault(u => u.Type == info.Type)
-            .Units.FirstOrDefault(u => u.gameObject.activeSelf == false);
+        Unit unit = null;
+
+        if (_units.TryGetValue(info.Type, out List<Unit> units))
+        {
+            unit = units.First();
+            units.Remove(unit);
+        }
+
+        return unit;
     }
 
     private void AddType(UnitType type)
     {
-        UnitNode node = new UnitNode();
-        node.Type = type;
-        node.Units = new HashSet<Unit>();
-
-        _units.Add(node);
-    }
-
-    private bool Contains(UnitType type)
-    {
-        UnitNode node = new();
-        node.Type = type;
-
-        return _units.Contains(node);
+        _units.Add(type, new List<Unit>());
     }
 }

@@ -11,7 +11,7 @@ public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
 
     protected override T CreateObject<T>(Unit unitPrefab)
     {
-        var warrior = GameObject.Instantiate(unitPrefab);
-        return warrior.GetComponent<T>();
+        var unit = GameObject.Instantiate(unitPrefab);
+        return unit.GetComponent<T>();
     }
 }

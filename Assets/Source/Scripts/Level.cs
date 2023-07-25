@@ -1,7 +1,17 @@
-using UnityEngine;
+using System;
 
-public class Level : MonoBehaviour
+public class Level
 {
-    [SerializeField] private LevelInfo _levelInfo;
+    private LevelInfo _levelInfo;
+    private StateMachine _stateMachine;
+
+    public Level(LevelInfo levelInfo, StateMachine stateMachine)
+    {
+        _levelInfo = levelInfo;
+        _stateMachine = stateMachine;
+    }
+
+    public event Action<UnitType> SpawnEnemy;
+
 
 }

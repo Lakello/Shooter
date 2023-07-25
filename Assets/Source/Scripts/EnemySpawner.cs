@@ -9,16 +9,27 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
         _spawnPoints = parent.GetComponentsInChildren<SpawnPoint>();
     }
 
+    public void OnSpawn(Unit type)
+    {
+        Unit unit = GetObject(type);
+
+        int randomSpawnPointindex = Random.Range(0, _spawnPoints.Length);
+        Vector3 position = _spawnPoints[randomSpawnPointindex].transform.position;
+
+        unit.transform.position = position;
+        unit.gameObject.SetActive(true);
+    }
+
     protected override Unit GetObject(UnitInfo info)
     {
-        Unit obj = Pool.TryGetObject(info);
+        Unit unit = Pool.TryGetObject(info);
 
-        if (obj == null)
+        if (unit == null)
         {
-            obj = CreateObject(info);
+            unit = CreateObject(info);
         }
 
-        return obj;
+        return unit;
     }
 
     protected override Unit CreateObject(UnitInfo info)

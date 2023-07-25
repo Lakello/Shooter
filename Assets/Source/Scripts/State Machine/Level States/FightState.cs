@@ -1,8 +1,10 @@
-﻿public class InitializeLevelState : State
+﻿using System.Collections;
+using UnityEngine;
+
+public class FightState : State
 {
-    public InitializeLevelState(LevelStateMachine levelStateMachine)
+    public FightState(StateMachine stateMachine) : base(stateMachine)
     {
-        StateMachine = levelStateMachine;
     }
 
     public override void Enter()
