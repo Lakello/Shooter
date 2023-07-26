@@ -2,26 +2,32 @@
 using System.Collections;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
     private float _remainingTime;
     private Coroutine _counterCoroutine;
+    private MonoBehaviour _context;
 
     public float RemainingTime => _remainingTime;
 
     public event Action TimeIsUp;
+
+    public Timer(MonoBehaviour context)
+    {
+        _context = context;
+    }
 
     public void Play(float durationInSeconds)
     {
         if (_counterCoroutine != null)
             Stop();
 
-        _counterCoroutine = StartCoroutine(Counter(durationInSeconds));
+        _counterCoroutine = _context.StartCoroutine(Counter(durationInSeconds));
     }
 
     public void Stop()
     {
-        StopCoroutine(_counterCoroutine);
+        _context.StopCoroutine(_counterCoroutine);
     }
 
     private IEnumerator Counter(float duration)

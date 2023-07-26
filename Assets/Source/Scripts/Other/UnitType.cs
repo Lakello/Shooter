@@ -1,17 +1,6 @@
-using System;
-using UnityEngine;
-
-[Serializable]
-public class UnitType : ICreatedType
+public enum UnitType
 {
-    [SerializeField] private Types _type;
-
-    public Types Unit => _type;
-
-    public enum Types
-    {
-        Warrior,
-        Mage,
-        Archer
-    }
+    Warrior,
+    Mage,
+    Archer
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "newUnitInfo", menuName = "Unit/New Unit")]
-public class UnitInfo : ScriptableObject, ICreatedType
+public class UnitInfo : ScriptableObject, ICreatedInfo
 {
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _damage;

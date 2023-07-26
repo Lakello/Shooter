@@ -9,9 +9,9 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
         _spawnPoints = parent.GetComponentsInChildren<SpawnPoint>();
     }
 
-    public void OnSpawn(Unit type)
+    public override void OnSpawn(UnitInfo info)
     {
-        Unit unit = GetObject(type);
+        Unit unit = GetObject(info);
 
         int randomSpawnPointindex = Random.Range(0, _spawnPoints.Length);
         Vector3 position = _spawnPoints[randomSpawnPointindex].transform.position;
@@ -36,7 +36,7 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
     {
         Unit newUnit = Factory.GetNewObject(info);
 
-        Pool.Add(info, newUnit);
+        Pool.Add(newUnit);
 
         return newUnit;
     }

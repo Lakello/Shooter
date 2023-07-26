@@ -15,7 +15,7 @@ MonoBehaviour:
   _durationWaveInSeconds: 120
   _delayBetweenStagesInSeconds: 5
   _stages:
-  - _enemy: 0
+  - _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
     _count: 5
-  - _enemy: 0
+  - _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
     _count: 10

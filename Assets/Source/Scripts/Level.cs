@@ -1,17 +1,21 @@
 using System;
+using System.Collections;
 
 public class Level
 {
     private LevelInfo _levelInfo;
-    private StateMachine _stateMachine;
+    private Timer _timer;
 
-    public Level(LevelInfo levelInfo, StateMachine stateMachine)
+    public Level(LevelInfo levelInfo)
     {
         _levelInfo = levelInfo;
-        _stateMachine = stateMachine;
+        _timer = new Timer();
     }
 
-    public event Action<UnitType> SpawnEnemy;
+    public event Action<UnitInfo> SpawnEnemy;
 
-
+    private IEnumerator Fight()
+    {
+        yield return null;
+    }
 }
