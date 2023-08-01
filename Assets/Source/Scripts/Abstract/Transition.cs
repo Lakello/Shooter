@@ -1,17 +1,17 @@
-using System;
+﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class Transition : ITransition
+public abstract class Transition : ITransition
 {
-    [SerializeField] private State _targetState;
+    protected IState TargetState;
 
-    public State TargetState => _targetState;
-
-    public Transition(State targetState)
+    public Transition(IState targetState)
     {
-        _targetState = targetState;
+        TargetState = targetState;
     }
 
-    public event Action NeedTransit;
+    public abstract event Action<IState> NeedTransit;
+
+    public abstract void OnEnable();
+    public abstract void OnDisable();
 }

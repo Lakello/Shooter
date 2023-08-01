@@ -7,5 +7,11 @@ public class LevelInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        LevelStateMAchineInit();
+    }
+
+    private void LevelStateMAchineInit()
+    {
+
     }
 }

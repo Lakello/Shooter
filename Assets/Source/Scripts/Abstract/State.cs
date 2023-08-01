@@ -1,52 +1,57 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using Zenject;
 
-[Serializable]
-public class State : IState
+public abstract class State : IState, IDisposable
 {
-    [SerializeField] private List<Transition> _transitions;
+    private List<ITransition> _transitions;
 
-    public State(List<Transition> transitions)
+    protected IReadOnlyList<ITransition> Transitions => _transitions;
+
+    public State(List<ITransition> transitions)
     {
         _transitions = transitions;
+
+        Enable += Subscribe;
+        Disable += UnSubscribe;
     }
 
-    public void Enter()
+    public abstract event Action Enable;
+    public abstract event Action Disable;
+
+    public abstract void Enter();
+    public abstract void Exit();
+
+    [Inject]
+    public void Dispose()
     {
-        //if (enabled == false)
-        //{
-        //    Target = target;
+        UnSubscribe();
 
-        //    enabled = true;
-
-        //    foreach (var transition in _transitions)
-        //    {
-        //        transition.enabled = true;
-        //        transition.Init(Target);
-        //    }
-        //}
+        Enable += Subscribe;
+        Disable += UnSubscribe;
     }
 
-    public void Exit()
+    private void Subscribe()
     {
-        //if (enabled == true)
-        //{
-        //    foreach (var transition in _transitions)
-        //        transition.enabled = false;
+        if (Transitions == null || Transitions.Count < 1)
+            return;
 
-        //    enabled = false;
-        //}
+        foreach (var transition in Transitions) 
+        {
+            Enable += transition.OnEnable;
+            Disable += transition.OnDisable;
+        }
     }
 
-    public State GetNextState()
+    private void UnSubscribe()
     {
-        //foreach (var transition in _transitions)
-        //{
-        //    if (transition.NeedTransit)
-        //        return transition.TargetState;
-        //}
+        if (Transitions == null || Transitions.Count < 1)
+            return;
 
-        return null;
+        foreach (var transition in Transitions)
+        {
+            Enable -= transition.OnEnable;
+            Disable -= transition.OnDisable;
+        }
     }
 }

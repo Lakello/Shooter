@@ -22,13 +22,8 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
 
     protected override Unit GetObject(UnitInfo info)
     {
-        Unit unit = Pool.TryGetObject(info);
-
-        if (unit == null)
-        {
-            unit = CreateObject(info);
-        }
-
+        Unit unit = Pool.TryGetObject(info) ?? CreateObject(info);
+        
         return unit;
     }
 

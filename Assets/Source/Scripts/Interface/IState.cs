@@ -1,5 +1,9 @@
-﻿public interface IState
+﻿using System;
+
+public interface IState
 {
-    public void Enter();
-    public void Exit();
-}
+    public abstract event Action Enable;
+    public abstract event Action Disable;
+    public abstract void Enter();
+    public abstract void Exit();
+} 
