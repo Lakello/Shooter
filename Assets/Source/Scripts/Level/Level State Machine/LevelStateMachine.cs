@@ -2,19 +2,15 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class LevelStateMachine : IStateMachine
+public class LevelStateMachine : MonoBehaviour, ITransitable
 {
     private IState _firstState;
     private IState _currentState;
-    private LevelInfo _levelInfo;
-    private ITimeWrite _timer;
 
     [Inject]
-    public LevelStateMachine(ITimeWrite timer, IState firstState, LevelInfo levelInfo)
+    public void Init(IState firstState, LevelInfo levelInfo)
     {
         _firstState = firstState;
-        _levelInfo = levelInfo;
-        _timer = timer;
 
         Reset();
     }

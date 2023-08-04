@@ -1,14 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class Transition : ITransition
+public abstract class Transition : MonoBehaviour, ITransition
 {
-    protected IState TargetState;
-
-    public Transition(IState targetState)
-    {
-        TargetState = targetState;
-    }
+    [SerializeField] protected IState TargetState;
 
     public abstract event Action<IState> NeedTransit;
 

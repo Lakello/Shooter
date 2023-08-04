@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Timer : ITimeWrite, ITimeRead
+public class Timer
 {
     private float _remainingTime;
     private Coroutine _counterCoroutine;
