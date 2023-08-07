@@ -4,6 +4,6 @@ public abstract class ObjectFactory<TObject, TInfo> where TObject : ICreated whe
 {
     public abstract TObject GetNewObject(TInfo info);
 
-    protected abstract T CreateObject<T>(TObject unitPrefab);
+    protected abstract TObject CreateObject(TObject unitPrefab);
 }
  

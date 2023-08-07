@@ -4,9 +4,9 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
 {
     private SpawnPoint[] _spawnPoints;
 
-    public EnemySpawner(GameObject parent, ObjectFactory<Unit, UnitInfo> factory, ObjectPool<Unit, UnitInfo> pool) : base(factory, pool)
+    public EnemySpawner(GameObject spawnPointsContainer, ObjectFactory<Unit, UnitInfo> factory, ObjectPool<Unit, UnitInfo> pool) : base(factory, pool)
     {
-        _spawnPoints = parent.GetComponentsInChildren<SpawnPoint>();
+        _spawnPoints = spawnPointsContainer.GetComponentsInChildren<SpawnPoint>();
     }
 
     public override void OnSpawn(UnitInfo info)

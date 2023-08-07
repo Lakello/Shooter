@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Timer
+public class Timer : ITimeRead, ITimeWrite
 {
     private float _remainingTime;
     private Coroutine _counterCoroutine;
@@ -27,7 +27,8 @@ public class Timer
 
     public void Stop()
     {
-        _context.StopCoroutine(_counterCoroutine);
+        if (_context != null)
+            _context.StopCoroutine(_counterCoroutine);
     }
 
     private IEnumerator Counter(float duration)

@@ -6,34 +6,29 @@ public class TimeIsUpTransition : Transition
 {
     [SerializeField] private float _durationInSeconds;
 
-    private Timer _timer;
+    private ITimeRead _timerRead;
+    private ITimeWrite _timerWrite;
     private ITransitable _stateMachine;
-
-    public override event Action<IState> NeedTransit;
 
     public override void OnEnable()
     {
         _stateMachine.SubscribeTransit(this);
-        _timer.TimeIsUp += Call;
-        _timer.Play(_durationInSeconds);
+        _timerRead.TimeIsUp += Call;
+        _timerWrite.Play(_durationInSeconds);
     }
 
     public override void OnDisable()
     {
         _stateMachine.UnsubscribeTransit(this);
-        _timer.Stop();
-        _timer.TimeIsUp -= Call;
+        _timerWrite.Stop();
+        _timerRead.TimeIsUp -= Call;
     }
 
     [Inject]
-    private void Init(Timer timer, ITransitable stateMachine)
+    private void Init(ITimeRead read, ITimeWrite write, ITransitable stateMachine)
     {
         _stateMachine = stateMachine;
-        _timer = timer;
-    }
-
-    private void Call()
-    {
-        NeedTransit?.Invoke(TargetState);
+        _timerRead = read;
+        _timerWrite = write;
     }
 }

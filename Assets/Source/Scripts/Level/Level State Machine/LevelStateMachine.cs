@@ -1,18 +1,18 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 public class LevelStateMachine : MonoBehaviour, ITransitable
 {
-    private IState _firstState;
+    [SerializeField] private State _firstState;
+
     private IState _currentState;
+    private LevelInfo _levelInfo;
 
-    [Inject]
-    public void Init(IState firstState, LevelInfo levelInfo)
+    private void Awake()
     {
-        _firstState = firstState;
+        _currentState = _firstState;
 
-        Reset();
+        _currentState?.Enter();
     }
 
     public void SubscribeTransit(ITransition transition)
@@ -25,11 +25,10 @@ public class LevelStateMachine : MonoBehaviour, ITransitable
         transition.NeedTransit -= Transit;
     }
 
-    private void Reset()
+    [Inject]
+    private void Init(LevelInfo levelInfo)
     {
-        _currentState = _firstState;
-
-        _currentState?.Enter();
+        _levelInfo = levelInfo;
     }
 
     private void Transit(IState nextState)
