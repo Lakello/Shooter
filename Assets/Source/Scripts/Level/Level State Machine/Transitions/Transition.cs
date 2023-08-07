@@ -1,29 +1,14 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
-public abstract class Transition : MonoBehaviour, ITransition
+public abstract class Transition
 {
-    [SerializeField] private State _targetState;
-
-    protected IState TargetState => _targetState;
-
-    public event Action<IState> NeedTransit;
-
-    public abstract void OnEnable();
-    public abstract void OnDisable();
-
-    public void TurnOn()
-    {
-        enabled = true;
-    }
-
-    public void TurnOff()
-    {
-        enabled = false;
-    }
+    public event Action<Transition> NeedTransit;
 
     protected void Call()
     {
-        NeedTransit?.Invoke(TargetState);
+        NeedTransit?.Invoke(this);
     }
 }

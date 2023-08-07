@@ -1,42 +1,31 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class LevelStateMachine : MonoBehaviour, ITransitable
+public class LevelStateMachine : StateMachine, ILevelState
 {
-    [SerializeField] private State _firstState;
-
-    private IState _currentState;
     private LevelInfo _levelInfo;
+    private int _currentWave;
+    private int _currentWaveStage;
 
-    private void Awake()
+    public int CurrentWave => _currentWave;
+    public int CurrentWaveStage => _currentWaveStage;
+
+    public LevelStateMachine(Func<Dictionary<Type, State>> states) : base(states) {}
+
+    public void NextWave()
     {
-        _currentState = _firstState;
-
-        _currentState?.Enter();
+        if (CurrentWave < _levelInfo.Waves.Count)
+            _currentWave++;
     }
 
-    public void SubscribeTransit(ITransition transition)
+    public void NextWaveStage()
     {
-        transition.NeedTransit += Transit;
-    }
-
-    public void UnsubscribeTransit(ITransition transition)
-    {
-        transition.NeedTransit -= Transit;
+        if (CurrentWaveStage < _levelInfo.Waves[CurrentWave - 1].Stages.Count)
+            _currentWave++;
     }
 
     [Inject]
-    private void Init(LevelInfo levelInfo)
-    {
-        _levelInfo = levelInfo;
-    }
-
-    private void Transit(IState nextState)
-    {
-        _currentState?.Exit();
-
-        _currentState = nextState;
-
-        _currentState?.Enter();
-    }
+    private void Init(LevelInfo levelInfo) => _levelInfo = levelInfo;
 }

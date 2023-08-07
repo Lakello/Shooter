@@ -6,7 +6,7 @@ public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
 
     public UnitsFactory() 
     {
-        _container = GameObject.Instantiate(new GameObject());
+        _container = Object.Instantiate(new GameObject());
         _container.gameObject.name = "Container";
     }
 
@@ -19,7 +19,7 @@ public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
 
     protected override Unit CreateObject(Unit unitPrefab)
     {
-        var unit = GameObject.Instantiate(unitPrefab, _container.transform);
+        var unit = Object.Instantiate(unitPrefab, _container.transform);
         return unit.GetComponent<Unit>();
     }
 }

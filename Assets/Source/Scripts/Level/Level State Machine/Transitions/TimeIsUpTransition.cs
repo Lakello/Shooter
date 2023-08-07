@@ -1,34 +1,19 @@
-using System;
-using UnityEngine;
+﻿using System;
 using Zenject;
 
-public class TimeIsUpTransition : Transition
+public class TimeIsUpTransition : Transition, IDisposable
 {
-    [SerializeField] private float _durationInSeconds;
+    private ITimeRead _timeRead;
 
-    private ITimeRead _timerRead;
-    private ITimeWrite _timerWrite;
-    private ITransitable _stateMachine;
-
-    public override void OnEnable()
+    public void Dispose()
     {
-        _stateMachine.SubscribeTransit(this);
-        _timerRead.TimeIsUp += Call;
-        _timerWrite.Play(_durationInSeconds);
-    }
-
-    public override void OnDisable()
-    {
-        _stateMachine.UnsubscribeTransit(this);
-        _timerWrite.Stop();
-        _timerRead.TimeIsUp -= Call;
+        _timeRead.TimeIsUp -= Call;
     }
 
     [Inject]
-    private void Init(ITimeRead read, ITimeWrite write, ITransitable stateMachine)
+    private void Init(ITimeRead time)
     {
-        _stateMachine = stateMachine;
-        _timerRead = read;
-        _timerWrite = write;
+        _timeRead = time;
+        _timeRead.TimeIsUp += Call;
     }
 }

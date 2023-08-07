@@ -4,25 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class WaveSpawnState : State
+public class FightState : State
 {
     private Spawner<Unit, UnitInfo> _spawner;
+    private LevelInfo _levelInfo;
 
     [Inject]
-    private void Init(Spawner<Unit, UnitInfo> spawner)
+    private void Init(Spawner<Unit, UnitInfo> spawner, LevelInfo levelInfo)
     {
         _spawner = spawner;
+        _levelInfo = levelInfo;
     }
 
     public override void Enter()
     {
-        enabled = true;
         Debug.Log("FIGHT");
     }
 
     public override void Exit()
     {
-        enabled = false;
         Debug.Log("NON FIGHT");
     }
 }
