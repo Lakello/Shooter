@@ -1,15 +1,15 @@
-public abstract class Spawner<TObject, TInfo> where TObject : ICreated where TInfo : ICreatedInfo
+public abstract class Spawner<TObject> where TObject : ICreated
 {
-    protected ObjectFactory<TObject, TInfo> Factory;
-    protected ObjectPool<TObject, TInfo> Pool;
+    protected ObjectFactory<TObject> Factory;
+    protected ObjectPool<TObject> Pool;
 
-    protected Spawner(ObjectFactory<TObject, TInfo> factory, ObjectPool<TObject, TInfo> pool)
+    protected Spawner(ObjectFactory<TObject> factory, ObjectPool<TObject> pool)
     {
         Factory = factory;
         Pool = pool;
     }
 
-    public abstract void OnSpawn(TInfo info);
-    protected abstract TObject GetObject(TInfo info);
-    protected abstract TObject CreateObject(TInfo info);
+    public abstract void OnSpawn(TObject info);
+    protected abstract TObject GetObject(TObject info);
+    protected abstract TObject CreateObject(TObject info);
 }

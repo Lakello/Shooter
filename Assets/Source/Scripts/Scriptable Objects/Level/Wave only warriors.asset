@@ -15,8 +15,8 @@ MonoBehaviour:
   _delayBetweenStagesInSeconds: 5
   _stages:
   - _delayBetweenSpawns: 1
-    _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
+    _enemyPrefab: {fileID: 4335690703636820043, guid: 250216db5fcbdb740a5dfe1c7d2bfee1, type: 3}
     _count: 5
   - _delayBetweenSpawns: 1
-    _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
+    _enemyPrefab: {fileID: 4335690703636820043, guid: 250216db5fcbdb740a5dfe1c7d2bfee1, type: 3}
     _count: 10

@@ -1,7 +1,6 @@
 using UnityEngine;
 using Zenject;
 using System;
-using System.Collections.Generic;
 
 public class LevelInstaller : MonoInstaller
 {
@@ -17,6 +16,10 @@ public class LevelInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        Container.Bind<PlayerInput>()
+                 .AsSingle()
+                 .NonLazy();
+
         Container.Bind<MonoBehaviour>()
                  .FromMethod(() => this);
 
@@ -26,7 +29,7 @@ public class LevelInstaller : MonoInstaller
 
         Container.Bind<LevelInfo>().FromMethod(() => _info);
 
-        Container.Bind<Spawner<Unit, UnitInfo>>()
+        Container.Bind<Spawner<Unit>>()
                  .FromMethod(() => new EnemySpawner(_spawnPointsContainer, new UnitsFactory(), new UnitPool()))
                  .AsSingle()
                  .NonLazy();

@@ -5,10 +5,10 @@ using System;
 public class WaveStage
 {
     [SerializeField] private float _delayBetweenSpawns;
-    [SerializeField] private UnitInfo _enemy;
+    [SerializeField] private Unit _enemyPrefab;
     [SerializeField] private int _count;
 
     public float DelayBetweenSpawns => _delayBetweenSpawns;
-    public UnitInfo Enemy => _enemy;
+    public Unit Enemy => _enemyPrefab;
     public int SpawnCount => _count;
 }

@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
+  _selfInfo: {fileID: 0}
 --- !u!1 &3776297253817289546
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,4 +158,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d25b71a7cd9b24899697130dbde731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 0
+  CurrentHealth: 100
+  _selfInfo: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
+public class UnitsFactory : ObjectFactory<Unit>
 {
     private GameObject _container;
 
@@ -8,18 +8,11 @@ public class UnitsFactory : ObjectFactory<Unit, UnitInfo>
     {
         _container = Object.Instantiate(new GameObject());
         _container.gameObject.name = "Container";
+        _container.gameObject.tag = _container.name;
     }
 
-    public override Unit GetNewObject(UnitInfo unitInfo)
+    public override Unit GetNewObject(Unit unit)
     {
-        var unit = CreateObject(unitInfo.Prefab);
-        unit.Init(unitInfo);
-        return unit;
-    }
-
-    protected override Unit CreateObject(Unit unitPrefab)
-    {
-        var unit = Object.Instantiate(unitPrefab, _container.transform);
-        return unit.GetComponent<Unit>();
+        return Object.Instantiate(unit, _container.transform);
     }
 }

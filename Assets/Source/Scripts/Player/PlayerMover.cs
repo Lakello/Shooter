@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -8,11 +9,6 @@ public class PlayerMover : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
-    }
-
-    private void Awake()
-    {
-        _input = new PlayerInput();
     }
 
     private void Update()
@@ -37,5 +33,11 @@ public class PlayerMover : MonoBehaviour
                             * new Vector3(input.x, 0, input.y);
 
         transform.position += move * scaleMoveSpeed;
+    }
+
+    [Inject]
+    private void Init(PlayerInput input)
+    {
+        _input = input;
     }
 }

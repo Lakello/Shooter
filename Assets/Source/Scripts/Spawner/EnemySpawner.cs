@@ -1,37 +1,39 @@
 using UnityEngine;
 using Zenject.SpaceFighter;
 
-public class EnemySpawner : Spawner<Unit, UnitInfo>
+public class EnemySpawner : Spawner<Unit>
 {
     private SpawnPoint[] _spawnPoints;
 
-    public EnemySpawner(GameObject spawnPointsContainer, ObjectFactory<Unit, UnitInfo> factory, ObjectPool<Unit, UnitInfo> pool) : base(factory, pool)
+    public EnemySpawner(GameObject spawnPointsContainer, ObjectFactory<Unit> factory, ObjectPool<Unit> pool) : base(factory, pool)
     {
         _spawnPoints = spawnPointsContainer.GetComponentsInChildren<SpawnPoint>();
     }
 
-    public override void OnSpawn(UnitInfo info)
+    public override void OnSpawn(Unit unit)
     {
-        Unit unit = GetObject(info);
+        Unit spawnedUnit = GetObject(unit);
 
         int randomSpawnPointindex = Random.Range(0, _spawnPoints.Length);
         Vector3 position = _spawnPoints[randomSpawnPointindex].transform.position;
 
-        unit.transform.position = position;
-        unit.gameObject.SetActive(true);
+        spawnedUnit.Dead += Pool.Return;
+
+        spawnedUnit.transform.position = position;
+        spawnedUnit.gameObject.SetActive(true);
     }
 
-    protected override Unit GetObject(UnitInfo info)
+    protected override Unit GetObject(Unit unit)
     {
-        Unit unit = Pool.TryGetObject(info) ?? CreateObject(info);
+        Unit spawnedUnit = Pool.TryGetObject(unit) ?? CreateObject(unit);
 
-        return unit;
+        return spawnedUnit;
     }
 
-    protected override Unit CreateObject(UnitInfo info)
+    protected override Unit CreateObject(Unit unit)
     {
-        Debug.Log($"enemy Spawned");
-        Unit newUnit = Factory.GetNewObject(info);
+        Debug.Log("Создан новый");
+        Unit newUnit = Factory.GetNewObject(unit);
 
         return newUnit;
     }

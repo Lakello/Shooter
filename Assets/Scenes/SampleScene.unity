@@ -789,7 +789,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 79.35
+  m_fontSize: 117.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1238,6 +1238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 946283425}
   - component: {fileID: 946283426}
+  - component: {fileID: 946283427}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1275,6 +1276,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
+--- !u!114 &946283427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946283424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e454a383969385b4b97777fe1806c7d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1d9b678104ada4f8f430e0976f94bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 946283427}
   _spawnPointsContainer: {fileID: 1539216282}
   _info: {fileID: 11400000, guid: 25ab5f95cd0b47f4fb7582d1d23c1685, type: 2}
 --- !u!114 &1146351634

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class UnitPool : ObjectPool<Unit, UnitInfo>
+public class UnitPool : ObjectPool<Unit>
 {
     private Dictionary<UnitType, List<Unit>> _units = new Dictionary<UnitType, List<Unit>>();
 
@@ -10,20 +10,22 @@ public class UnitPool : ObjectPool<Unit, UnitInfo>
         Add(unit);
     }
 
-    public override Unit TryGetObject(UnitInfo info)
+    public override Unit TryGetObject(Unit unit)
     {
-        Unit unit = null;
-
-        if (_units.TryGetValue(info.Type, out List<Unit> units))
+        if (_units.TryGetValue(unit.SelfInfo.Type, out List<Unit> units))
         {
             if (units == null || units.Count < 1)
-                return unit;
+                return null;
 
-            unit = units.First();
-            units.Remove(unit);
+            var obtainedUnit = units.First();
+            units.Remove(obtainedUnit);
+
+            UnityEngine.Debug.Log("Получен из пула");
+
+            return obtainedUnit;
         }
 
-        return unit;
+        return null;
     }
 
     protected override void Add(Unit unit)

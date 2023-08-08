@@ -1,6 +1,6 @@
-public abstract class ObjectPool<TObject, TInfo> where TObject : ICreated where TInfo : ICreatedInfo
+public abstract class ObjectPool<TObject> where TObject : ICreated
 {
     public abstract void Return(TObject @object);
-    public abstract TObject TryGetObject(TInfo type);
+    public abstract TObject TryGetObject(TObject @object);
     protected abstract void Add(TObject @object);
 }

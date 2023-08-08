@@ -15,5 +15,6 @@ MonoBehaviour:
   _maxHealth: 100
   _damage: 10
   _attackDistance: 3
-  _prefab: {fileID: 4335690703636820043, guid: 250216db5fcbdb740a5dfe1c7d2bfee1, type: 3}
+  _attackSpeed: 5
+  _moveSpeed: 5
   _type: 0

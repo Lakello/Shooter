@@ -10,7 +10,7 @@ public class FightState : State
 {
     private ILevelStateRead _stateRead;
     private ILevelStateWrite _stateWrite;
-    private Spawner<Unit, UnitInfo> _spawner;
+    private Spawner<Unit> _spawner;
     private LevelInfo _levelInfo;
     private Coroutine _restartSpawnCoroutine;
 
@@ -45,13 +45,13 @@ public class FightState : State
         WaitForSeconds delaybetweenSpawns 
             = new WaitForSeconds(currentStage.DelayBetweenSpawns);
 
-        UnitInfo enemyInfo = currentStage.Enemy;
+        Unit enemy = currentStage.Enemy;
 
         int enemySpawned = 0;
 
         while (enemySpawned < currentStage.SpawnCount)
         {
-            _spawner.OnSpawn(enemyInfo);
+            _spawner.OnSpawn(enemy);
             enemySpawned++;
 
             yield return delaybetweenSpawns;
@@ -90,7 +90,7 @@ public class FightState : State
     }
 
     [Inject]
-    private void Init(Spawner<Unit, UnitInfo> spawner, LevelInfo levelInfo)
+    private void Init(Spawner<Unit> spawner, LevelInfo levelInfo)
     {
         _spawner = spawner;
         _levelInfo = levelInfo;

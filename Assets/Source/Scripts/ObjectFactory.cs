@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public abstract class ObjectFactory<TObject, TInfo> where TObject : ICreated where TInfo : ICreatedInfo
+public abstract class ObjectFactory<TObject> where TObject : ICreated
 {
-    public abstract TObject GetNewObject(TInfo info);
-
-    protected abstract TObject CreateObject(TObject unitPrefab);
+    public abstract TObject GetNewObject(TObject @object);
 }
  
