@@ -1,4 +1,4 @@
-using UnityEngine;
+using System;
 
 public abstract class Warrior : Unit, IAttack, ITakeDamage
 {

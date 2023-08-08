@@ -1,5 +1,5 @@
 ﻿public interface ITimeWrite
 {
-    public void Play(float duration);
+    public void Run(float duration);
     public void Stop();
 }

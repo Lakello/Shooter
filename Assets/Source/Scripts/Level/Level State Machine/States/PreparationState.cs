@@ -3,25 +3,28 @@ using Zenject;
 
 public class PreparationState : State, IFirstState
 {
+    private TimeIsUpTransition _timeIsUp;
     private LevelInfo _levelInfo;
     private ITimeWrite _timeWrite;
 
     public override void Enter()
     {
-        _timeWrite.Play(_levelInfo.DelayBeforeStartOfLevelInSeconds);
-        
+        _timeIsUp.NeedTransit += Transit;
+
+        _timeWrite.Run(_levelInfo.DelayBeforeStartOfLevelInSeconds);
 
         Debug.Log("PREPARATION");
     }
 
     public override void Exit()
     {
+        _timeIsUp.NeedTransit -= Transit;
         Debug.Log("NON PREPARATION");
     }
 
-    private void Transit(Transition transition)
+    private void Transit()
     {
-        LevelStateMachine.EnterIn<FightState>();
+        StateMachine.EnterIn<FightState>();
     }
 
     [Inject]
@@ -29,10 +32,6 @@ public class PreparationState : State, IFirstState
     {
         _levelInfo = levelInfo;
         _timeWrite = write;
-
-        timeIsUp.NeedTransit += Transit;
-
-        var gg = Object.Instantiate(new GameObject());
-        gg.name = "PREPARATION";
+        _timeIsUp = timeIsUp;        
     }
 }

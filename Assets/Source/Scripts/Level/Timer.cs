@@ -10,6 +10,7 @@ public class Timer : ITimeRead, ITimeWrite
 
     public float RemainingTime => _remainingTime;
 
+    public event Action TimerIsRunning;
     public event Action TimeIsUp;
 
     public Timer(MonoBehaviour context)
@@ -17,7 +18,7 @@ public class Timer : ITimeRead, ITimeWrite
         _context = context;
     }
 
-    public void Play(float durationInSeconds)
+    public void Run(float durationInSeconds)
     {
         if (_counterCoroutine != null)
             Stop();
@@ -33,6 +34,8 @@ public class Timer : ITimeRead, ITimeWrite
 
     private IEnumerator Counter(float duration)
     {
+        TimerIsRunning?.Invoke();
+
         _remainingTime = duration;
 
         while (_remainingTime > 0)

@@ -1,29 +1,35 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
-public class LevelStateMachine : StateMachine, ILevelState
+public class LevelStateMachine : StateMachine, ILevelStateRead, ILevelStateWrite
 {
     private LevelInfo _levelInfo;
-    private int _currentWave;
-    private int _currentWaveStage;
+    private int _currentWaveIndex;
+    private int _currentStageIndex;
 
-    public int CurrentWave => _currentWave;
-    public int CurrentWaveStage => _currentWaveStage;
+    public int CurrentWaveIndex => _currentWaveIndex;
+    public int CurrentStageIndex => _currentStageIndex;
 
-    public LevelStateMachine(Func<Dictionary<Type, State>> states) : base(states) {}
-
-    public void NextWave()
+    public bool TryNextWave()
     {
-        if (CurrentWave < _levelInfo.Waves.Count)
-            _currentWave++;
+        if (CurrentWaveIndex < _levelInfo.Waves.Count - 1)
+        {
+            _currentWaveIndex++;
+            _currentStageIndex = 0;
+            return true;
+        }
+
+        return false;
     }
 
-    public void NextWaveStage()
+    public bool TryNextStage()
     {
-        if (CurrentWaveStage < _levelInfo.Waves[CurrentWave - 1].Stages.Count)
-            _currentWave++;
+        if (CurrentStageIndex < _levelInfo.Waves[CurrentWaveIndex].Stages.Count - 1)
+        {
+            _currentStageIndex++;
+            return true;
+        }
+
+        return false;
     }
 
     [Inject]

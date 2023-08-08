@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level One
   m_EditorClassIdentifier: 
   _delayBetweenWavesInSeconds: 30
-  _delayBeforeStartOfLevelInSeconds: 60
+  _delayBeforeStartOfLevelInSeconds: 2
   _waves:
   - {fileID: 11400000, guid: d2caffe687ee10048b13db99ef16694f, type: 2}
   - {fileID: 11400000, guid: d2caffe687ee10048b13db99ef16694f, type: 2}

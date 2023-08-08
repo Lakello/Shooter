@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject.SpaceFighter;
 
 public class EnemySpawner : Spawner<Unit, UnitInfo>
 {
@@ -23,15 +24,14 @@ public class EnemySpawner : Spawner<Unit, UnitInfo>
     protected override Unit GetObject(UnitInfo info)
     {
         Unit unit = Pool.TryGetObject(info) ?? CreateObject(info);
-        
+
         return unit;
     }
 
     protected override Unit CreateObject(UnitInfo info)
     {
+        Debug.Log($"enemy Spawned");
         Unit newUnit = Factory.GetNewObject(info);
-
-        Pool.Add(newUnit);
 
         return newUnit;
     }

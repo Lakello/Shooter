@@ -1,19 +1,32 @@
 ﻿using System.Collections.Generic;
 using System;
-using Zenject;
+using UnityEngine;
 
-public abstract class StateMachine
+public abstract class StateMachine : MonoBehaviour
 {
     protected Dictionary<Type, State> States;
     protected State CurrentState;
 
-    public StateMachine(Func<Dictionary<Type, State>> states)
+    private void Awake()
     {
-        States = states();
+        States = new Dictionary<Type, State>();
+    }
+
+    private void Start()
+    {
+        EnterIn<PreparationState>();
+    }
+
+    private void OnDisable()
+    {
+        CurrentState?.Exit();
     }
 
     public void EnterIn<TState>() where TState : State
     {
+        if (States.ContainsKey(typeof(TState)) == false)
+            throw new NullReferenceException(nameof(States));
+
         if (States.TryGetValue(typeof(TState), out State state))
         {
             CurrentState?.Exit();
@@ -22,10 +35,13 @@ public abstract class StateMachine
         }
     }
 
-    [Inject]
-    private void Init(IFirstState firstState)
+    public void AddState(State state)
     {
-        CurrentState = firstState as State;
-        CurrentState.Enter();
+        Type type = state.GetType();
+
+        if (States.ContainsKey(type) == false)
+        {
+            States.Add(type, state);
+        }
     }
 }

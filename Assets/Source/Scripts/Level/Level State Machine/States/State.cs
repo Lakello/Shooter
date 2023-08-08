@@ -1,15 +1,17 @@
-using Zenject;
+using UnityEngine;
 
-public abstract class State
+[RequireComponent(typeof(StateMachine))]
+public abstract class State : MonoBehaviour
 {
-    protected StateMachine LevelStateMachine;
+    protected StateMachine StateMachine;
+
+    private void Start()
+    {
+        StateMachine = GetComponent<StateMachine>();
+
+        StateMachine.AddState(this);
+    }
 
     public abstract void Enter();
     public abstract void Exit();
-
-    [Inject]
-    private void Init(StateMachine stateMachine)
-    {
-        LevelStateMachine = stateMachine;
-    }
 }

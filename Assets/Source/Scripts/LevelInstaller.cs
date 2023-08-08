@@ -34,30 +34,5 @@ public class LevelInstaller : MonoInstaller
         Container.Bind<TimeIsUpTransition>()
                  .AsSingle()
                  .NonLazy();
-
-        LevelStateMachineInit();
-    }
-
-    private void LevelStateMachineInit()
-    { 
-        Container.Bind<IFirstState>()
-                 .FromMethod(() => new PreparationState())
-                 .AsSingle()
-                 .NonLazy();
-
-        Container.Bind<StateMachine>()
-                 .FromMethod(() =>
-                 {
-                     return new LevelStateMachine(() =>
-                     {
-                         return new Dictionary<Type, State>()
-                         {
-                             [typeof(FightState)] = new FightState(),
-                             [typeof(WaitingState)] = new WaitingState()
-                         };
-                     });
-                 })
-                 .AsSingle()
-                 .NonLazy();
     }
 }

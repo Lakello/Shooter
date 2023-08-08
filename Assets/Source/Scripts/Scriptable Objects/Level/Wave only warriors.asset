@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed57296acebfe846a5a94d1c3b59398, type: 3}
   m_Name: Wave only warriors
   m_EditorClassIdentifier: 
-  _durationWaveInSeconds: 120
   _delayBetweenStagesInSeconds: 5
   _stages:
-  - _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
+  - _delayBetweenSpawns: 1
+    _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
     _count: 5
-  - _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
+  - _delayBetweenSpawns: 1
+    _enemy: {fileID: 11400000, guid: bfa1e2ea027e1ce45a906fc96d37e7d1, type: 2}
     _count: 10

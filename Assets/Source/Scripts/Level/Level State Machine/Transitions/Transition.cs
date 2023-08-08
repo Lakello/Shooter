@@ -5,10 +5,10 @@ using Zenject;
 
 public abstract class Transition
 {
-    public event Action<Transition> NeedTransit;
+    public event Action NeedTransit;
 
     protected void Call()
     {
-        NeedTransit?.Invoke(this);
+        NeedTransit?.Invoke();
     }
 }
