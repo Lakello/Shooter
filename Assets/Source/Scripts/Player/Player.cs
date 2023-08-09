@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 public class Player : MonoBehaviour, ITakeDamage, IAttack
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour, ITakeDamage, IAttack
 
     private void Update()
     {
-        if (_input.Player.Attack.ReadValue<bool>())
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             var enemy = _container.GetComponentInChildren<ITakeDamage>();
 

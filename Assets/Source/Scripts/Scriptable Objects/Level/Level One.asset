@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c9fe63b2cff6f94db454a6fa5f1eb7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e4eb01e28b92ed4cbea48b266c7a793, type: 3}
   m_Name: Level One
   m_EditorClassIdentifier: 
-  _delayBetweenWavesInSeconds: 30
-  _delayBeforeStartOfLevelInSeconds: 2
+  _delayBetweenWavesInSeconds: 5
+  _delayBeforeStartOfLevelInSeconds: 3
   _waves:
-  - {fileID: 11400000, guid: d2caffe687ee10048b13db99ef16694f, type: 2}
   - {fileID: 11400000, guid: d2caffe687ee10048b13db99ef16694f, type: 2}

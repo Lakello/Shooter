@@ -1,28 +1,27 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public class UnitPool : ObjectPool<Unit>
 {
-    private Dictionary<UnitType, List<Unit>> _units = new Dictionary<UnitType, List<Unit>>();
+    private Dictionary<Type, Queue<Unit>> _units = new Dictionary<Type, Queue<Unit>>();
 
     public override void Return(Unit unit)
     {
+        unit.Dead -= Return;
+
         Add(unit);
     }
 
-    public override Unit TryGetObject(Unit unit)
+    public override Unit TryGetObject(Unit needUnit)
     {
-        if (_units.TryGetValue(unit.SelfInfo.Type, out List<Unit> units))
+        if (_units.TryGetValue(needUnit.SelfType, out Queue<Unit> units))
         {
-            if (units == null || units.Count < 1)
-                return null;
+            if (units.Count > 0)
+            {
+                var unit = units.Dequeue();
 
-            var obtainedUnit = units.First();
-            units.Remove(obtainedUnit);
-
-            UnityEngine.Debug.Log("Получен из пула");
-
-            return obtainedUnit;
+                return unit;
+            }
         }
 
         return null;
@@ -30,18 +29,18 @@ public class UnitPool : ObjectPool<Unit>
 
     protected override void Add(Unit unit)
     {
-        if (!_units.ContainsKey(unit.SelfInfo.Type))
-            AddType(unit.SelfInfo.Type);
+        if (!_units.ContainsKey(unit.SelfType))
+            AddType(unit.SelfType);
 
-        if (_units.TryGetValue(unit.SelfInfo.Type, out List<Unit> units))
+        if (_units.TryGetValue(unit.SelfType, out Queue<Unit> units))
         {
             unit.gameObject.SetActive(false);
-            units.Add(unit);
+            units.Enqueue(unit);
         }
     }
 
-    private void AddType(UnitType type)
+    private void AddType(Type type)
     {
-        _units.Add(type, new List<Unit>());
+        _units.Add(type, new Queue<Unit>());
     }
 }

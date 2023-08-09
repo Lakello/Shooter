@@ -32,7 +32,6 @@ public class EnemySpawner : Spawner<Unit>
 
     protected override Unit CreateObject(Unit unit)
     {
-        Debug.Log("Создан новый");
         Unit newUnit = Factory.GetNewObject(unit);
 
         return newUnit;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(ILevelStateRead))]
@@ -12,7 +13,7 @@ public class FightState : State
     private ILevelStateWrite _stateWrite;
     private Spawner<Unit> _spawner;
     private LevelInfo _levelInfo;
-    private Coroutine _restartSpawnCoroutine;
+    private Coroutine _enemySpawnCoroutine;
 
     private void Awake()
     {
@@ -22,14 +23,12 @@ public class FightState : State
 
     public override void Enter()
     {
-        Debug.Log("FIGHT");
-
         RestartEnemySpawn();
     }
 
     public override void Exit()
     {
-        Debug.Log("NON FIGHT");
+        StopCoroutine(_enemySpawnCoroutine);
     }
 
     private IEnumerator EnemySpawn()
@@ -78,10 +77,10 @@ public class FightState : State
 
     private void RestartEnemySpawn()
     {
-        if (_restartSpawnCoroutine != null)
-            StopCoroutine(_restartSpawnCoroutine);
+        if (_enemySpawnCoroutine != null)
+            StopCoroutine(_enemySpawnCoroutine);
 
-        _restartSpawnCoroutine = StartCoroutine(EnemySpawn());
+        _enemySpawnCoroutine = StartCoroutine(EnemySpawn());
     }
 
     private void Transit()
