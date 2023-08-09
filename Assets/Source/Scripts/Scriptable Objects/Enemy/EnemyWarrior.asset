@@ -17,4 +17,3 @@ MonoBehaviour:
   _attackDistance: 3
   _attackSpeed: 5
   _moveSpeed: 5
-  _type: 0

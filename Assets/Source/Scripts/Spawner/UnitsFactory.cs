@@ -3,16 +3,19 @@ using UnityEngine;
 public class UnitsFactory : ObjectFactory<Unit>
 {
     private GameObject _container;
+    private Player _player;
 
-    public UnitsFactory() 
+    public UnitsFactory(Player player) 
     {
-        _container = Object.Instantiate(new GameObject());
-        _container.gameObject.name = "Container";
+        _container = new GameObject("Container");
         _container.gameObject.tag = _container.name;
+        _player = player;
     }
 
     public override Unit GetNewObject(Unit unit)
     {
-        return Object.Instantiate(unit, _container.transform);
+        var newUnit = Object.Instantiate(unit);
+        newUnit.Init(_player);
+        return newUnit;
     }
 }

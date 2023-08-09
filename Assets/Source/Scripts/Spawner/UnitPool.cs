@@ -12,9 +12,9 @@ public class UnitPool : ObjectPool<Unit>
         Add(unit);
     }
 
-    public override Unit TryGetObject(Unit needUnit)
+    public override Unit TryGetObjectByType(Type unitType)
     {
-        if (_units.TryGetValue(needUnit.SelfType, out Queue<Unit> units))
+        if (_units.TryGetValue(unitType, out Queue<Unit> units))
         {
             if (units.Count > 0)
             {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class PreparationState : State, IFirstState
+public class PreparationState : State
 {
     private TimeIsUpTransition _timeIsUp;
     private LevelInfo _levelInfo;

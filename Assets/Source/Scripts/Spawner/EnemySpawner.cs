@@ -25,7 +25,7 @@ public class EnemySpawner : Spawner<Unit>
 
     protected override Unit GetObject(Unit unit)
     {
-        Unit spawnedUnit = Pool.TryGetObject(unit) ?? CreateObject(unit);
+        Unit spawnedUnit = Pool.TryGetObjectByType(unit.SelfType) ?? CreateObject(unit);
 
         return spawnedUnit;
     }
