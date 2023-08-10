@@ -4,6 +4,7 @@ using Zenject;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
+
     private PlayerInput _input;
 
     private void OnEnable()

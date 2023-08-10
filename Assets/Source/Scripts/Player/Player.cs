@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Zenject;
 
-public class Player : MonoBehaviour, ITakeDamage, IAttack
+public class Player : MonoBehaviour, ITakeDamage
 {
     private float _currentHealth;
 
@@ -13,11 +10,6 @@ public class Player : MonoBehaviour, ITakeDamage, IAttack
     private void Awake()
     {
         _currentHealth = 100;
-    }
-
-    public void Attack()
-    {
-        
     }
 
     public void TakeDamage(float damage)

@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class UnitsFactory : ObjectFactory<Unit>
 {
+    private const string Container = nameof(Container);
+
     private GameObject _container;
     private Player _player;
 
     public UnitsFactory(Player player) 
     {
-        _container = new GameObject("Container");
+        _container = new GameObject(Container);
         _container.gameObject.tag = _container.name;
         _player = player;
     }
