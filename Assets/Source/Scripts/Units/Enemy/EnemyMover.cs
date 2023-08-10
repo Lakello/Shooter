@@ -1,22 +1,13 @@
 ﻿using UnityEngine;
-using Zenject.SpaceFighter;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyMover : MonoBehaviour
 {
-    private Rigidbody _selfRigidbody;
+    [SerializeField] private NavMeshAgent _agent;
 
-    private void Awake()
+    public void Move(Transform target)
     {
-        _selfRigidbody = GetComponent<Rigidbody>();
-    }
-
-    public void Move(Transform target, float moveSpeed)
-    {
-        Vector3 direction = target.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        direction.Normalize();
-
-        _selfRigidbody.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
+        _agent.SetDestination(target.position);
     }
 }

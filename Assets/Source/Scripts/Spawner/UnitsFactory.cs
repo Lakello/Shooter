@@ -16,6 +16,7 @@ public class UnitsFactory : ObjectFactory<Unit>
     {
         var newUnit = Object.Instantiate(unit);
         newUnit.Init(_player);
+        newUnit.gameObject.SetActive(false);
         return newUnit;
     }
 }

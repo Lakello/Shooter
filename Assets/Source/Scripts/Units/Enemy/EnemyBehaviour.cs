@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Unit))]
 [RequireComponent(typeof(IAttack))]
@@ -18,17 +19,25 @@ public class EnemyBehaviour : MonoBehaviour
         _enemyMover = GetComponent<EnemyMover>();
     }
 
+    private void OnEnable()
+    {
+        _enemyMover.Move(_target.transform);
+    }
+
     private void Update()
     {
-        var distance = Vector3.Distance(transform.position, _target.transform.position);
-
-        if (distance > _unit.SelfInfo.AttackDistance)
-        {
-            _enemyMover.Move(_target.transform, _unit.SelfInfo.MoveSpeed);
-        }
-        else
+        if (CanAttack())
         {
             _attack.Attack();
         }
+        else
+        {
+            _enemyMover.Move(_target.transform);
+        }
+    }
+
+    private bool CanAttack()
+    {
+        return Vector3.Distance(transform.position, _target.transform.position) < _unit.SelfInfo.AttackDistance;
     }
 }
